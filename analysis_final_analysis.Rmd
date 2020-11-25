@@ -838,6 +838,18 @@ umap_cellnames_bytime
 save_plot(umap_cellnames_bytime, outname = "todoplots/3/umap_cellnames_bytime", fig.width=15, fig.height=8)
 ```
 
+
+```{r fig.width=15, fig.height=6}
+
+umap_cellnames_plot = DimPlot(subset(obj.integrated, cells=cells.monocyte), group.by = "unified_cellnames", split.by = "disease_state", label=T)
+
+save_plot(umap_cellnames_plot, outname = "todoplots/14/umap_cellnames_by_ds", fig.width=15, fig.height=6)
+
+umap_cellnames_plot = DimPlot(subset(obj.integrated, cells=cells.monocyte), group.by = "unified_cellnames", split.by = "mpoint", label=T)
+
+save_plot(umap_cellnames_plot, outname = "todoplots/14/umap_cellnames_by_tp", fig.width=15, fig.height=6)
+```
+
 ```{r}
 
 markers.use.tt=subset(exprdfTT ,avg_logFC>0&p_val_adj<0.01&!startsWith(gene, "MT-")&!startsWith(gene, "RP"))
@@ -1225,7 +1237,7 @@ cowplot::save_plot("sub_cluster_bcell.pdf", p, base_height = 10, base_width = 10
 
 ```
 
-```{r}
+```{r fig.height=8, fig.width=20}
 
 obj.integrated.subset = makeSubCluster(obj.integrated.subset, idents.monocytes, "monocytes")
 p=cowplot::plot_grid(DimPlot(subset(obj.integrated.subset, idents = idents.monocytes), group.by = "sub_cluster_monocytes", label=T))
@@ -1234,6 +1246,20 @@ p
 
 cowplot::save_plot("sub_cluster_monocytes.png", p, base_height = 10, base_width = 10) 
 cowplot::save_plot("sub_cluster_monocytes.pdf", p, base_height = 10, base_width = 10) 
+
+
+plotTimepoints(subset(obj.integrated.subset, idents = idents.monocytes), outnames=c("todoplots/14/umap_monocytes_by_timepoint.png", "todoplots/14/umap_monocytes_by_timepoint.pdf"), groupby="sub_cluster_monocytes", label=T, include.ctrl = T,fig.height=14, fig.width=20, xmin=5, xmax=15, ymin = -1, ymax=8)
+
+
+p=DimPlot(subset(obj.integrated.subset, idents = idents.monocytes), group.by="sub_cluster_monocytes", split.by = "mpoint")
+p
+
+save_plot(p, "todoplots/14/umap_monocytes_by_mpoint", fig.height = 8, fig.width = 20)
+
+p=DimPlot(subset(obj.integrated.subset, idents = idents.monocytes), group.by="sub_cluster_monocytes", split.by = "disease_state")
+p
+
+save_plot(p, "todoplots/14/umap_monocytes_by_disease_state", fig.height = 8, fig.width = 20)
 
 ```
 a little offspin: try to get marker genes for those clusters ...
@@ -1644,7 +1670,6 @@ return(disease_tp)
 ```
 
 ```{r}
-
 cd8_disease_tp = makeShortDE(obj.integrated, cells.cd8, "cd8", "todoplots/12/cd8/")
 cd4t_disease_tp = makeShortDE(obj.integrated, cells.cd4t, "cd4t", "todoplots/12/cd4t/")
 
@@ -1653,6 +1678,11 @@ cd4t_disease_tp = makeShortDE(obj.integrated, cells.cd4t, "cd4t", "todoplots/12/
 ```{r}
 saveRDS(cd8_disease_tp, "todoplots/12/cd8/cd8_disease_tp.Rds")
 saveRDS(cd4t_disease_tp, "todoplots/12/cd4t/cd4t_disease_tp.Rds")
+```
+
+```{r}
+cd8_disease_tp=readRDS("todoplots/12/cd8/cd8_disease_tp.Rds")
+cd4t_disease_tp=readRDS("todoplots/12/cd4t/cd4t_disease_tp.Rds")
 ```
 
 
@@ -1681,19 +1711,21 @@ cd4t_disease_tp.gse = readRDS("todoplots/12/cd4t/gse.cd4t_disease_tp.Rds")
 ```
 
 ```{r}
-makePlotsListsGO(cd8_disease_tp.go, cd8_disease_tp, "todoplots/12/cd8/go/")
+t=makePlotsListsGO(cd8_disease_tp.go, cd8_disease_tp, "todoplots/12/cd8/go/")
 
-makePlotsListsGO(cd8_disease_tp.ra, cd8_disease_tp, "todoplots/12/cd8/ra/", name.ggo=NULL, name.ego="rao", name.ego_up="rao_up", name.ego_down="rao_down", name.title="ReactomePA")
+t=makePlotsListsGO(cd8_disease_tp.ra, cd8_disease_tp, "todoplots/12/cd8/ra/", name.ggo=NULL, name.ego="rao", name.ego_up="rao_up", name.ego_down="rao_down", name.title="ReactomePA")
 
-makePlotsListsGSE(cd8_disease_tp.gse, cd8_disease_tp, "todoplots/12/cd8/gse/")
+t=makePlotsListsGSE(cd8_disease_tp.gse, cd8_disease_tp, "todoplots/12/cd8/gse/")
+
+t=makePlotsListsGO(cd4t_disease_tp.go, cd4t_disease_tp, "todoplots/cd4tcells/go/")
+
+t=makePlotsListsGO(cd4t_disease_tp.ra, cd4t_disease_tp, "todoplots/cd4tcells/ra/", name.ggo=NULL, name.ego="rao", name.ego_up="rao_up", name.ego_down="rao_down", name.title="ReactomePA")
+
+t=makePlotsListsGSE(cd4t_disease_tp.gse, cd4t_disease_tp, "todoplots/cd4tcells/gse/")
 ```
 
 ```{r}
-makePlotsListsGO(cd4t_disease_tp.go, cd4t_disease_tp, "todoplots/cd4tcells/go/")
-
-makePlotsListsGO(cd4t_disease_tp.ra, cd4t_disease_tp, "todoplots/cd4tcells/ra/", name.ggo=NULL, name.ego="rao", name.ego_up="rao_up", name.ego_down="rao_down", name.title="ReactomePA")
-
-makePlotsListsGSE(cd4t_disease_tp.gse, cd4t_disease_tp, "todoplots/cd4tcells/gse/")
+data.frame(size = sort(sapply(.GlobalEnv, object.size)))
 ```
 
 
@@ -1948,7 +1980,7 @@ for (cellName in names(detailPlotList))
 {
   selIdents = detailPlotList[[cellName]]
   
-  vplt = VlnPlot(subset(obj.integrated, idents=selIdents), group.by = "disease_state", features = features.detailplots, assay = "RNA", ncol=4, pt.size = 0, cols=dsCols)+ theme(legend.position = 'none')
+  vplt = VlnPlot(subset(obj.integrated, idents=selIdents), group.by = "disease_state", features = features.detailplots, assay = "RNA", ncol=3, pt.size = 0, cols=dsCols)+ theme(legend.position = 'none')
   title <- ggdraw() + draw_label(paste(cellName, "(All TPs)"), fontface = 'bold')
   vplt=cowplot::plot_grid(title, vplt, ncol = 1, rel_heights = c(0.1, 1))
   save_plot(vplt, paste("todoplots/10_11/",cellName,"/", cellName,".violin.details", sep=""), 12 , 8)
@@ -1981,7 +2013,7 @@ for (cellName in names(detailPlotList))
       next;
     }
     
-    vplt_tp = VlnPlot(subset(obj.integrated, cells=selDsCells), group.by = "mpoint", features = features.detailplots, assay = "RNA", ncol=4, pt.size = 0, cols=dsCols)+ theme(legend.position = 'none')
+    vplt_tp = VlnPlot(subset(obj.integrated, cells=selDsCells), group.by = "mpoint", features = features.detailplots, assay = "RNA", ncol=3, pt.size = 0, cols=mpCols)+ theme(legend.position = 'none')
   title <- ggdraw() + draw_label(paste(cellName, "(",ds,")"), fontface = 'bold')
   vplt_tp=cowplot::plot_grid(title, vplt_tp, ncol = 1, rel_heights = c(0.1, 1))
   save_plot(vplt_tp, paste("todoplots/10_11/",cellName,"/", cellName,".violin.tp.",ds,".details", sep=""), 12 , 8)
@@ -3024,7 +3056,7 @@ write.table(cellCountConditionCellname, file="cellcounts_by_condition_for_cellna
 ```
 
 ```{r}
-save.image("/mnt/f/dev/data/Rprojs/covidSC/analysis_end.final.RData", compress = FALSE)
+save.image("/mnt/f/dev/data/Rprojs/covidSC/analysis_end.current.RData", compress = FALSE)
 
 ```
 
@@ -3090,242 +3122,6 @@ plot()
 ```
 
 
-```{r}
-
-featureGenes=unique(c("MT2A", "ISG15", "LY6E", "IFIT1", "IFIT2", "IFIT3", "IFITM1", "IFITM3", "IFI44L", "IFI6", "MX1", "MX2 IFI27; IFI44L", "IFI27", "RSAD2", "SIGLEC1", "IFIT1", "IS15", "IRF7", "IRF9", "XAF1"))
-group.by = "mpoint"
-scaled=T
-features.rotate=T
-col.min = -3
-col.max = 3
-
-  featureGenes.orig = featureGenes
-  featureGenes = intersect(featureGenes, rownames(obj.integrated))
-
-  plot_list = list()
-  plot_orig_list = list()
-  allFoundFeatures = c()
-  allFoundGroups = c()
-  
-  pcolors = c("grey", "blue")
-  
-
-  elemCount = 0
-  for (plotName in names(plotElems))
-  {
-    print(plotName)
-    plotData = plotElems[[plotName]]
-    plotCells = plotData$cells
-    plotDescr = plotData$label
-    
-    if (scaled) {
-      plotElem_orig = DotPlot(subset(obj.integrated, cells=plotCells), features=featureGenes, group.by = group.by, col.min = col.min, col.max=col.max, cols=pcolors, scale=scaled)
-
-    } else {
-      plotElem_orig = DotPlot(subset(obj.integrated, cells=plotCells), features=featureGenes, group.by = group.by, cols=cols, scale=scaled)
-      
-      # https://github.com/satijalab/seurat/issues/2798
-      plotElem_orig$layers[[1]] <- NULL # remove original geom_point layer where the color scale is hard-coded to use scaled average expression
-      
-      plotElem_orig$data[plotElem_orig$data$avg.exp>col.max, 'avg.exp'] = col.max
-      plotElem_orig$data[plotElem_orig$data$avg.exp<col.min, 'avg.exp'] = col.min
-      
-      plotElem_orig <- plotElem_orig + 
-      geom_point(mapping = aes_string(size = 'pct.exp', color = 'avg.exp')) +
-      guides(color = guide_colorbar(title = 'Average Expression'))
-    }
-
-    allFoundFeatures = unique(c(allFoundFeatures, as.character(plotElem_orig$data$features.plot)))
-    allFoundGroups = unique(c(allFoundGroups, plotElem_orig$data$id))
-    
-    plotElem_orig = plotElem_orig + scale_color_gradient(limits=c(col.min, col.max), low = pcolors[1], high = pcolors[2])
-    plotElem_orig = plotElem_orig + theme(axis.title.x=element_blank(), axis.title.y=element_blank(), legend.position = "none")
-    
-    if (features.rotate)
-    {
-      plotElem_orig= plotElem_orig + theme(axis.text.x = element_text(angle = 90, hjust = 0.5, vjust=1))
-    }
-    print(plotName)
-
-    plot_orig_list[[plotName]] = plotElem_orig
-  }
-  
-  
-  if (scaled)
-  {
-    
-    # initialize Values
-    for (plotName in names(plot_orig_list))
-    {
-        plot_orig_list[[plotName]]$data$avg.exp.scaled2 = 0
-    }
-    
-    
-    # calculate avg.exp.scaled2 for each feature
-    for (featureName in allFoundFeatures)
-    {
-     
-      allUnscaledValues = data.frame()
-      for (plotName in names(plot_orig_list))
-      {
-        pData = plot_orig_list[[plotName]]$data
-        newDF = data.frame(pData[ pData$features.plot==featureName, ]$avg.exp)
-        colnames(newDF) = c(plotName)
-        
-        allUnscaledValues = cbind.fill(allUnscaledValues, newDF)
-      }
-      
-      sampleNames = colnames(allUnscaledValues)
-      allUnscaledValues = as.data.frame(allUnscaledValues)
-      allUnscaledValues$rnames = as.numeric(rownames(allUnscaledValues))
-      
-      allUnscaledLong = allUnscaledValues %>% gather(Type, Value, sampleNames)
-      allUnscaledLong$Value = scale(allUnscaledLong$Value)
-      
-      allScaledValues = allUnscaledLong %>% spread(Type, Value) %>% arrange( order(rnames))
-      allScaledValues
-      
-      for (plotName in names(plot_orig_list))
-      {
-        
-        plotElem_orig = plot_orig_list[[plotName]]
-        pData = plotElem_orig$data
-  
-        
-        # https://github.com/satijalab/seurat/issues/2798
-        plotElem_orig$layers[[1]] <- NULL # remove original geom_point layer where the color scale is hard-coded to use scaled average expression
-        
-        plotElem_orig$data[plotElem_orig$data$features.plot==featureName, "avg.exp.scaled2"] = allScaledValues[!is.na(allScaledValues[, plotName]),plotName]
-        plot_orig_list[[plotName]] = plotElem_orig
-      }
-    }
-    
-    
-    
-    for (plotName in names(plot_orig_list))
-    {
-      for (featureName in allFoundFeatures)
-      {
-        plotElem_orig = plot_orig_list[[plotName]]
-        pData = plotElem_orig$data
-        
-        for (groupName in allFoundGroups)
-        {
-         
-          subdf = pData[pData$id == groupName & pData$features.plot == featureName,]
-          
-          if (nrow(subdf) == 0)
-          {
-            print(paste(plotName, featureName, groupName))
-            addDF = data.frame(avg.exp=0, pct.exp=0, features.plot=featureName, id=groupName, avg.exp.scaled=col.min, avg.exp.scaled2=col.min, stringsAsFactors = FALSE)
-            rownames(addDF) = featureName
-            
-            plotElem_orig$data$id <- as.character(plotElem_orig$data$id)
-            
-            plotElem_orig$data = rbind(plotElem_orig$data, addDF)
-            
-            plotElem_orig$data$id <- as.factor(plotElem_orig$data$id)
-            
-            plot_orig_list[[plotName]] = plotElem_orig
-          }
-          
-        }
-      }
-    }
-    
-    
-    
-    for (plotName in names(plot_orig_list))
-    {
-      plotElem_orig = plot_orig_list[[plotName]]
-      pData = plotElem_orig$data
-      
-      plotElem_orig$data[plotElem_orig$data$avg.exp.scaled2>col.max, 'avg.exp.scaled2'] = col.max
-      plotElem_orig$data[plotElem_orig$data$avg.exp.scaled2<col.min, 'avg.exp.scaled2'] = col.min
-      
-      plotElem_orig <- plotElem_orig + 
-      geom_point(mapping = aes_string(size = 'pct.exp', color = 'avg.exp.scaled2')) +
-      guides(color = guide_colorbar(title = 'Average Scaled Expression'))
-      
-      plotElem_orig = plotElem_orig + scale_color_gradient(limits=c(col.min, col.max), low = pcolors[1], high = pcolors[2])
-      plotElem_orig = plotElem_orig + theme(axis.title.x=element_blank(), axis.title.y=element_blank(), legend.position = "none")
-      
-      plot_orig_list[[plotName]] = plotElem_orig
-    }
-  }
-  
-  
-  
-  elemCount = 0
-  plot_list=list()
-  for (plotName in names(plot_orig_list))
-  {
-    
-    plotElem_orig = plot_orig_list[[plotName]]
-    
-    elemCount = elemCount + 1
-    
-    plotElem = plotElem_orig +  theme(
-              axis.text.y = element_blank(),
-              panel.grid.major.x = element_line( size=.1, color="black" ),
-              axis.line.y = element_line(size = 0),
-              axis.ticks.length.y = unit(0, "points")
-    )
-  
-    pe = make_descr_label(plotElem, plotElems[[plotName]]$label)
-  
-    plot_list[[plotName]] = pe
-  
-  }
-  
-  legendDescr = 'Average Expression'
-  if (scaled)
-  {
-    legendDescr = 'Average Scaled Expression'  
-  }
-  
-  # extract a legend that is laid out horizontally #
-  legend_b <- get_legend(
-    plotElem_orig + 
-      guides(color = guide_colorbar(title = legendDescr, direction="horizontal"))+ #guide_legend(nrow = 1, override.aes = list(size=6)))+
-      theme(legend.position = "bottom")
-  )
-  
-  title <- ggdraw() + draw_label("PlotTile", fontface='bold')
-  plot_list[["last"]] = NULL
-  
-  ap = cowplot::plot_grid(
-    plotlist = plot_list, 
-    labels = NULL,
-    nrow=1
-  )
-  
-  plotElem_new = plot_orig_list[[names(plot_orig_list)[[1]]]]
-  plotElem_new$layers[[1]] = NULL
-  pa = plotElem_new + theme(axis.text.x=element_text(colour = "white")) #+ xlim("", "B")
-  pal = make_descr_label(pa, "")
-  
-  
-  plist = list()
-  plist[["Legend"]] = pal
-  
-  for (le in names(plot_list))
-  {
-    plist[[le]] = plot_list[[le]]
-  }
-  
-  
-  ap=cowplot::plot_grid(
-    plotlist = plist,
-    labels = NULL,
-    nrow=1, rel_widths = c(0.09, rep(0.1, length(plot_list))),
-    align = "v", axis="bt"
-  )
-
-  fp = cowplot::plot_grid(title, ap, legend_b, ncol = 1, rel_heights = c(.05, 1, 0.1) )
-  fp
-
-```
 
 # Interferons
 
@@ -3333,15 +3129,114 @@ col.max = 3
 
 interferonGenes = c("MT2A", "ISG15", "LY6E", "IFIT1", "IFIT2", "IFIT3", "IFITM1", "IFITM3", "IFI44L", "IFI6", "MX1", "IFI27",  "IFI44L", "RSAD2", "SIGLEC1", "IFIT1", "ISG15")
 
-obj.integrated.data = GetAssayData(obj.integrated, assay = "RNA")
-obj.integrated.data.ifg.unscaled = obj.integrated.data[interferonGenes,]
-
-obj.integrated.data = scale(obj.integrated.data)
-obj.integrated.data.ifg.scaled = obj.integrated.data[interferonGenes,]
-
-dim(obj.integrated.data.ifg)
+obj.integrated.data = GetAssayData(obj.integrated, assay = "RNA", slot = "data")
+containedIfnGenes = intersect(interferonGenes, rownames(obj.integrated.data))
+containedIfnGenes
+obj.integrated.data.ifn = obj.integrated.data[containedIfnGenes, ]
+dim(obj.integrated.data.ifn)
 
 ```
+
+```{r}
+library(psych)
+```
+
+```{r}
+
+ifn_score = colMeans(obj.integrated.data.ifn)
+head(ifn_score)
+
+```
+
+```{r}
+
+ifnScoreDFs = list()
+subsetList = list("all"=colnames(obj.integrated), "Monocytes"=cells.monocyte, "NK-cells"=cells.nk, "T-cells"=cells.tcell, "gdT-Cells"=cells.gdtcell, "Dendritic Cells"=cells.dendritic, "pDCs"=cells.pdc, "Plasma Cells"=cells.plasma, "CD8+ Cells"=cells.cd8, "CD4+ T-cells"=cells.cd4t)
+
+for (sname in names(subsetList))
+{
+  print(sname)
+  selCells = subsetList[[sname]]
+  
+  ifn_score.control = ifn_score[intersect(cells.control, selCells)]
+  ifn_score.symptomatic = ifn_score[intersect(cells.symptomatic, selCells)]
+  ifn_score.asymptomatic = ifn_score[intersect(cells.asymptomatic, selCells)]
+  
+  df.control = data.frame("cond"=rep("Control", length(ifn_score.control)), "score"=ifn_score.control)
+  df.symptomatic = data.frame("cond"=rep("Symptomatic", length(ifn_score.symptomatic)), "score"=ifn_score.symptomatic)
+  df.asymptomatic = data.frame("cond"=rep("Asymptomatic", length(ifn_score.asymptomatic)), "score"=ifn_score.asymptomatic)
+  
+  df.all = rbind(df.control, df.symptomatic, df.asymptomatic)
+  
+  ifnScoreDFs[[sname]] = df.all
+}
+
+
+
+
+```
+
+
+```{r}
+library(plyr)
+library(ggpubr)
+```
+```{r}
+sIfnScore = ifn_score[names(obj.integrated$idents)]
+names(sIfnScore) = names(obj.integrated$idents)
+
+obj.integrated$ifn_score = sIfnScore
+```
+
+```{r}
+
+FeaturePlot(obj.integrated, features=c("ifn_score"), order=T)
+
+```
+
+```{r}
+
+dsCols
+dsrCols = c("Control"="#8B9693", "Asymptomatic"="#2C9B5C", "Symptomatic"="#FE4988")
+
+for (sname in names(ifnScoreDFs))
+{
+  ssname = str_replace_all(sname, " ", "_")
+  print(paste(sname, ssname))
+  
+  inDF = ifnScoreDFs[[sname]]
+  
+  my_comparisons <- list( c("Asymptomatic", "Control"), c("Symptomatic", "Control"), c("Asymptomatic", "Symptomatic") )
+  p=ggboxplot(inDF, x = "cond", y = "score",
+          color = "cond", palette = dsrCols)+
+  stat_compare_means(comparisons = my_comparisons, method = "t.test") + labs(title=paste("IFN-Score", sname))
+  
+  save_plot(p, paste("todoplots/13/", ssname, "_boxplot", sep=""), fig.width = 8, fig.height = 6)
+  plot(p)
+  
+  
+  p=FeaturePlot(subset(obj.integrated, cells=subsetList[[sname]]), features=c("ifn_score"), order=T) + labs(title=paste("IFN-Score", sname))
+  save_plot(p, paste("todoplots/13/", ssname, "_featureplot", sep=""), fig.width = 8, fig.height = 6)
+  plot(p)
+
+  
+}
+
+```
+
+
+
+
+
+
+
+
+
+
+```{r}
+saveRDS(obj.integrated, "obj.integrated.ifn_score.Rds")
+```
+
 
 ```{r}
 library("umap")

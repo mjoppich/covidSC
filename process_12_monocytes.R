@@ -39,10 +39,10 @@ RidgePlot(obj.monocytes_fine_12, features = c("FCGR3A", "CD14"))
 
 FeaturePlot(obj.monocytes_fine_12, features = c("FCGR3A", "CD14"), slot = "data", pt.size = 0.01, label=T)
 
-idents.ncmc = c("monocytes_9", "monocytes_17")
+idents.ncmc = c("monocytes_3")
 cells_ncmc  = makeGrpCells(obj.monocytes_fine_12, idents.ncmc)
 
-idents.cmc = c("monocytes_0", "monocytes_1","monocytes_2", "monocytes_4","monocytes_6", "monocytes_11","monocytes_14", "monocytes_15", "monocytes_18")
+idents.cmc = setdiff(setdiff(unique(obj.monocytes_fine$sub_cluster_monocytes), idents.ncmc), c("monocytes_11", "monocytes_12", "monocytes_9", "monocytes_3"))
 cells_cmc  = makeGrpCells(obj.monocytes_fine_12, idents.cmc)
 
 de.ncmc_cmc = compareCells(obj.monocytes_fine_12, cells_ncmc, cells_cmc, "ncmc", "cmc")
@@ -51,24 +51,19 @@ de.ncmc_cmc = compareCells(obj.monocytes_fine_12, cells_ncmc, cells_cmc, "ncmc",
 
 deResList = list("ncmc_cmc"=de.ncmc_cmc)
 
-markers.ncmc_cmc = makeAllGSE(deResList, reverseLogFC=F)
-#NES > 0 => upreg in ncmc
+write.xlsx(de.ncmc_cmc, file = "todoplots/ncmc/de.ncmc_cmc.xlsx" )
 
-lapply(names(markers.ncmc_cmc),
-       function(x) {
-         print(x)
-         if (nrow(markers.ncmc_cmc[[x]]$gsesym@result) > 0)
-         {
-           return(plotGSE(x, deResList, markers.ncmc_cmc, FALSE))
-         }
-         
-         return(NULL)
-       }
-)
+saveRDS(deResList, "ncmc_cmc_monocytes.Rds")
 
-view(markers.ncmc_cmc$ncmc_cmc$gsesym@result)
+#Rscript raAnalysis.R "ncmc_cmc_monocytes.Rds" "go_universe.Rds" "human"
+#Rscript goAnalysis.R "ncmc_cmc_monocytes.Rds" "go_universe.Rds"
+#Rscript gseAnalysis.R "ncmc_cmc_monocytes.Rds"
+
+ncmc_cmc_monocytes.ra = readRDS("ra.ncmc_cmc_monocytes.Rds")
+ncmc_cmc_monocytes.go = readRDS("go.ncmc_cmc_monocytes.Rds")
+ncmc_cmc_monocytes.gse = readRDS("gse.ncmc_cmc_monocytes.Rds")
 
 
-
-write.xlsx(de.ncmc_cmc, file = "de.ncmc_cmc.xlsx" )
-write.xlsx(markers.ncmc_cmc$ncmc_cmc$gsesym@result, file = "gse.ncmc_cmc.xlsx" )
+t=makePlotsListsGO(ncmc_cmc_monocytes.go, deResList, "todoplots/ncmc/go/")
+t=makePlotsListsGO(ncmc_cmc_monocytes.ra, deResList, "todoplots/ncmc/ra/", name.ggo=NULL, name.ego="rao", name.ego_up="rao_up", name.ego_down="rao_down", name.title="ReactomePA")
+t=makePlotsListsGSE(ncmc_cmc_monocytes.gse, deResList, "todoplots/ncmc/gse/")
