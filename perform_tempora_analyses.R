@@ -475,6 +475,15 @@ unique(ctrlTPs)
 #obj.integrated$stateCellnamesTP = stateCellnamesTPNumeric
 
 
+procObj.symp_only = makeStateCellnamesTP(subset(obj.integrated, disease_state=="SYMPTOMATIC"))
+tempora.symp_only = analyseTempora(procObj.symp_only$seurat, "stateCellnamesTP", levels(procObj.symp_only$factorObj), "ctrlTPs", c("1", "2", "3"), "stateCellnamesTP_symp_only", pw.threshold=0.5)
+
+procObj.asymp_only = makeStateCellnamesTP(subset(obj.integrated, disease_state=="ASYMPTOMATIC"))
+tempora.asymp_only = analyseTempora(procObj.asymp_only$seurat, "stateCellnamesTP", levels(procObj.asymp_only$factorObj), "ctrlTPs", c("1", "2", "3"), "stateCellnamesTP_asymp_only", pw.threshold=0.5)
+
+
+procObj.asymp_symp_only = makeStateCellnamesTP(subset(obj.integrated, disease_state!="CONTROL"))
+tempora.asymp_symp_only = analyseTempora(procObj.asymp_symp_only$seurat, "stateCellnamesTP", levels(procObj.asymp_symp_only$factorObj), "ctrlTPs", c("1", "2", "3"), "stateCellnamesTP_asymp_symp_only", pw.threshold=0.5)
 
 
 
