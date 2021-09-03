@@ -2098,13 +2098,20 @@ save_plot(sbsPlot_nk_gzbm_genes, "todoplots/9/genes_by_mpoint",fig.height=6, fig
 
 ```
 
+
+```{r}
+source("sbs_plot.R")
+
+```
+
+
 ```{r fig.height=5, fig.width=10}
 
 plotElems = list()
 plotElems[["Non-pneumonic"]] = list(cells=intersect(cells.monocyte, cells.asymptomatic), label="Monocytes ASYM")
 plotElems[["Pneumonic"]] = list(cells=intersect(cells.monocyte, cells.symptomatic), label="Monocytes SYM")
 
-sbsPlot = makeSideBySideDotPlot(obj.integrated, plotElems = plotElems, featureGenes=unique(c("MX1", "MX2", "XAF1", "IFI44L", "IFI44", "IFI6", "LY6E", "ISG15", "IFITM1")), group.by = "mpoint", rel.width.legend = 0.01, plot.title = "")
+sbsPlot = makeSideBySideDotPlot(obj.integrated, plotElems = plotElems, featureGenes=unique(c("MX1", "MX2", "XAF1", "IFI44L", "IFI44", "IFI6", "LY6E", "ISG15", "IFITM1")), group.by = "mpoint", rel.width.legend = 0.01, plot.title = "", cols=c("blue", "grey", "red"))
 sbsPlot = cowplot::plot_grid(ggdraw() + draw_label("Monocytes", fontface='bold'), sbsPlot, ncol =1, rel_heights = c(0.1,1.0))
 
 save_plot(sbsPlot, "last_minute_plots/sbsdp_involving_isgs_monocytes", fig.width = 10, fig.height = 5)
@@ -2116,7 +2123,7 @@ plotElems = list()
 plotElems[["Non-pneumonic"]] = list(cells=intersect(cells.bcell, cells.asymptomatic), label="B-cells ASYM")
 plotElems[["Pneumonic"]] = list(cells=intersect(cells.bcell, cells.symptomatic), label="B-cells SYM")
 
-sbsPlot = makeSideBySideDotPlot(obj.integrated, plotElems = plotElems, featureGenes=unique(c("MX1", "MX2", "XAF1", "IFI44L", "IFI44", "IFI6", "LY6E", "ISG15", "IFITM1")), group.by = "mpoint", rel.width.legend = 0.01, plot.title = "")
+sbsPlot = makeSideBySideDotPlot(obj.integrated, plotElems = plotElems, featureGenes=unique(c("MX1", "MX2", "XAF1", "IFI44L", "IFI44", "IFI6", "LY6E", "ISG15", "IFITM1")), group.by = "mpoint", rel.width.legend = 0.01, plot.title = "", cols=c("blue", "grey", "red"))
 sbsPlot = cowplot::plot_grid(ggdraw() + draw_label("B-cells", fontface='bold'), sbsPlot, ncol =1, rel_heights = c(0.1,1.0))
 
 save_plot(sbsPlot, "last_minute_plots/sbsdp_involving_isgs_bcells", fig.width = 10, fig.height = 5)
@@ -2129,7 +2136,7 @@ plotElems = list()
 plotElems[["Non-pneumonic"]] = list(cells=intersect(cells.cd4t, cells.asymptomatic), label="CD4+ T-cells ASYM")
 plotElems[["Pneumonic"]] = list(cells=intersect(cells.cd4t, cells.symptomatic), label="CD4+ T-cells SYM")
 
-sbsPlot = makeSideBySideDotPlot(obj.integrated, plotElems = plotElems, featureGenes=unique(c("MX1", "MX2", "XAF1", "IFI44L", "IFI44", "IFI6", "LY6E", "ISG15", "IFITM1")), group.by = "mpoint", rel.width.legend = 0.01, plot.title = "")
+sbsPlot = makeSideBySideDotPlot(obj.integrated, plotElems = plotElems, featureGenes=unique(c("MX1", "MX2", "XAF1", "IFI44L", "IFI44", "IFI6", "LY6E", "ISG15", "IFITM1")), group.by = "mpoint", rel.width.legend = 0.01, plot.title = "", cols=c("blue", "grey", "red"))
 sbsPlot = cowplot::plot_grid(ggdraw() + draw_label("CD4+ T-cells", fontface='bold'), sbsPlot, ncol =1, rel_heights = c(0.1,1.0))
 
 save_plot(sbsPlot, "last_minute_plots/sbsdp_involving_isgs_CD4_t_cells", fig.width = 10, fig.height = 5)
@@ -2142,7 +2149,7 @@ plotElems = list()
 plotElems[["Non-pneumonic"]] = list(cells=intersect(cells.nk, cells.asymptomatic), label="NK-cells ASYM")
 plotElems[["Pneumonic"]] = list(cells=intersect(cells.nk, cells.symptomatic), label="NK-cells SYM")
 
-sbsPlot = makeSideBySideDotPlot(obj.integrated, plotElems = plotElems, featureGenes=unique(c("MX1", "MX2", "XAF1", "IFI44L", "IFI44", "IFI6", "LY6E", "ISG15", "IFITM1")), group.by = "mpoint", rel.width.legend = 0.01, plot.title = "")
+sbsPlot = makeSideBySideDotPlot(obj.integrated, plotElems = plotElems, featureGenes=unique(c("MX1", "MX2", "XAF1", "IFI44L", "IFI44", "IFI6", "LY6E", "ISG15", "IFITM1")), group.by = "mpoint", rel.width.legend = 0.01, plot.title = "", cols=c("blue", "grey", "red"))
 sbsPlot = cowplot::plot_grid(ggdraw() + draw_label("NK-cells", fontface='bold'), sbsPlot, ncol =1, rel_heights = c(0.1,1.0))
 
 save_plot(sbsPlot, "last_minute_plots/sbsdp_involving_isgs_NK_cells", fig.width = 10, fig.height = 5)
@@ -2157,7 +2164,7 @@ plotElems = list()
 plotElems[["Non-pneumonic"]] = list(cells=intersect(cells.nk, cells.asymptomatic), label="NK-cells ASYM")
 plotElems[["Pneumonic"]] = list(cells=intersect(cells.nk, cells.symptomatic), label="NK-cells SYM")
 
-sbsPlot = makeSideBySideDotPlot(obj.integrated, plotElems = plotElems, featureGenes=unique(c("JUN", "JUNB", "FOS", "FOSB", "CCL3", "CCL4", "THEMIS2", "GZMB", "S100A8", "S100A9")), group.by = "mpoint", rel.width.legend = 0.01, plot.title = "")
+sbsPlot = makeSideBySideDotPlot(obj.integrated, plotElems = plotElems, featureGenes=unique(c("JUN", "JUNB", "FOS", "FOSB", "CCL3", "CCL4", "THEMIS2", "GZMB", "S100A8", "S100A9")), group.by = "mpoint", rel.width.legend = 0.01, plot.title = "", cols=c("blue", "grey", "red"))
 sbsPlot = cowplot::plot_grid(ggdraw() + draw_label("NK-cells", fontface='bold'), sbsPlot, ncol =1, rel_heights = c(0.1,1.0))
 
 save_plot(sbsPlot, "last_minute_plots/sbsdp_concentrating_NK_cells", fig.width = 10, fig.height = 5)
@@ -2169,7 +2176,7 @@ plotElems = list()
 plotElems[["Non-pneumonic"]] = list(cells=intersect(cells.monocyte, cells.asymptomatic), label="Monocytes ASYM")
 plotElems[["Pneumonic"]] = list(cells=intersect(cells.monocyte, cells.symptomatic), label="Monocytes SYM")
 
-sbsPlot = makeSideBySideDotPlot(obj.integrated, plotElems = plotElems, featureGenes=unique(c("AREG", "EREG", "CD83", "TMEM176B", "EGR3", "HBEGF", "IL1RN")), group.by = "mpoint", rel.width.legend = 0.01, plot.title = "")
+sbsPlot = makeSideBySideDotPlot(obj.integrated, plotElems = plotElems, featureGenes=unique(c("AREG", "EREG", "CD83", "TMEM176B", "EGR3", "HBEGF", "IL1RN")), group.by = "mpoint", rel.width.legend = 0.01, plot.title = "", cols=c("blue", "grey", "red"))
 sbsPlot = cowplot::plot_grid(ggdraw() + draw_label("Monocytes", fontface='bold'), sbsPlot, ncol =1, rel_heights = c(0.1,1.0))
 
 save_plot(sbsPlot, "last_minute_plots/sbsdp_involving_state_of_monocytes", fig.width = 10, fig.height = 5)
@@ -3555,6 +3562,10 @@ for (sname in names(subsetList))
   
   df.all = rbind(df.control, df.symptomatic, df.asymptomatic)
   
+  df.all$mpoint = obj.integrated$mpoint[rownames(df.all)]
+  df.all$tp = df.all$mpoint
+  df.all[df.all$cond == "Control",]$tp = "0"
+  
   ifnScoreDFs[[sname]] = df.all
 }
 
@@ -3570,6 +3581,164 @@ sIfnScore = ifn_score[names(obj.integrated$idents)]
 names(sIfnScore) = names(obj.integrated$idents)
 
 obj.integrated$ifn_score = sIfnScore
+
+```
+```{r}
+
+allPlotDF = data.frame()
+
+for (subsetName in names(ifnScoreDFs))
+{
+  
+  
+  plotDF = ifnScoreDFs[[subsetName]]
+
+ctrlDF = plotDF[plotDF$cond == "Control", ]
+plotDF = plotDF[plotDF$cond != "Control", ]
+
+ctrlDF$cond = "Symptomatic"
+plotDF = rbind(plotDF, ctrlDF)
+ctrlDF$cond = "Asymptomatic"
+plotDF = rbind(plotDF, ctrlDF)
+
+plotDF$tp = factor(plotDF$tp, labels=c("0", "1", "2", "3"))
+plotDF$cond = factor(plotDF$cond, labels=c("Asymptomatic", "Symptomatic"))
+plotDF$celltype = subsetName
+
+allPlotDF = rbind(allPlotDF, plotDF)
+
+
+p = ggplot(plotDF, aes(x = tp, y = score, fill = cond)) +
+  geom_boxplot(position = position_dodge(width = 0.9))+
+  stat_summary(
+    fun = median,
+    geom = 'line',
+    aes(group = cond, colour = cond),
+    position = position_dodge(width = 0.9) #this has to be added
+  ) + ggtitle(subsetName) + ylim(0,2.0)+theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(), axis.line = element_line(colour = "black"), text = element_text(size = 20)) + labs(x="TimePoint", y="ISG Score")
+  
+
+save_plot(p, paste("isg_longitudinal_plots/sympt_asympt_", str_replace_all(string = subsetName, pattern=" ", replacement="_"), sep=""), fig.width = 8, fig.height = 6)
+}
+
+allPlotDF$cell = rownames(allPlotDF)
+allPlotDF
+```
+
+
+```{r fig.width=16, fig.height=12}
+
+usePlotDF=NULL
+usePlotDF = data.frame(allPlotDF)
+usePlotDF$cond_ct = paste(usePlotDF$celltype, usePlotDF$cond, sep=" ")
+usePlotDF = usePlotDF[is.element(usePlotDF$celltype, c("T-cells", "B-cells", "NK-cells", "Monocytes")),]
+usePlotDF$cell = substring(usePlotDF$cell, 1, nchar(usePlotDF$cell)-1)
+usePlotDF
+
+celltype2color = list("T-cells"="#CD9600", "B-cells"="#00BE67", "Monocytes"="#F8766D", "NK-cells"="#7CAE00")
+
+usePlotDF$color = as.character(unlist(celltype2color[usePlotDF$celltype]))
+
+usePlotDF$celltype_fac=factor(usePlotDF$celltype, unique(usePlotDF$celltype))
+use.colors = celltype2color[levels(usePlotDF$celltype_fac)]
+names(use.colors) = levels(usePlotDF$celltype_fac)
+usePlotDF$cond = as.character(usePlotDF$cond)
+usePlotDF = usePlotDF[usePlotDF$tp!=0, ]
+
+geneExpr = GetAssayData(obj.integrated, assay = "RNA", slot="data")
+
+for (isGene in interferonGenes)
+{
+  usePlotDF[[isGene]] = geneExpr[isGene, ][usePlotDF$cell]
+}
+usePlotDF
+
+allPlotDF.sympt = usePlotDF[usePlotDF$cond == "Symptomatic", ]
+allPlotDF.asympt = usePlotDF[usePlotDF$cond == "Asymptomatic", ]
+
+
+```
+
+```{r fig.width=16, fig.height=12}
+
+
+p = ggplot(allPlotDF.sympt, aes(x = tp, y = score, fill=celltype_fac, alpha=0.5)) +
+  geom_boxplot(position = position_dodge(width = 0.9) )+scale_fill_manual(name = "Cell type", values = unlist(use.colors))+ stat_summary(
+    fun = median,
+    geom = 'smooth',
+    aes(group = celltype_fac, colour = celltype_fac),
+    position = position_dodge(width = 0.9) #this has to be added
+  ) +scale_colour_manual(name = "Cell type", values = unlist(use.colors)) +
+  ggtitle("Celltype and Condition ISG scores (Symptomatic)") + ylim(0,2.0) +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(), axis.line = element_line(colour = "black"), text = element_text(size = 20)) +
+  labs(x="TimePoint", y="ISG Score")
+plot(save_plot(p, paste("isg_longitudinal_plots/subset_sympt", sep=""), fig.width = 8, fig.height = 6))
+
+  p = ggplot(allPlotDF.asympt, aes(x = tp, y = score, fill=celltype_fac)) +
+  geom_boxplot(position = position_dodge(width = 0.9), alpha=0.5 )+ scale_fill_manual(name = "Cell type", values = unlist(use.colors)) + stat_summary(
+    fun = median,
+    geom = 'smooth',
+    aes(group = celltype_fac, colour = celltype_fac),
+    position = position_dodge(width = 0.9) #this has to be added
+  ) + scale_colour_manual(name = "Cell type", values = unlist(use.colors)) +
+    ggtitle("Celltype and Condition ISG scores (Asymptomatic)")+ ylim(0,2.0)+theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(), axis.line = element_line(colour = "black"), text = element_text(size = 20)) + labs(x="TimePoint", y="ISG Score")
+plot(save_plot(p, paste("isg_longitudinal_plots/subset_asympt", sep=""), fig.width = 8, fig.height = 6))
+
+
+
+plotGeneExpr = function( indf.sympt, indf.asympt, geneID)
+{
+  p = ggplot(indf.sympt, aes_string(x = "tp", y = geneID, fill="celltype_fac")) +
+  geom_boxplot(position = position_dodge(width = 0.9), alpha=0.5 )+scale_fill_manual(name = "Cell type", values = unlist(use.colors))+ stat_summary(
+    fun = median,
+    geom = 'smooth',
+    aes(group = celltype_fac, colour = celltype_fac),
+    position = position_dodge(width = 0.9) #this has to be added
+  ) +scale_colour_manual(name = "Cell type", values = unlist(use.colors)) +
+  ggtitle(paste(geneID, " Expression (Symptomatic)", sep="")) + ylim(0,8.0) +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(), axis.line = element_line(colour = "black"), text = element_text(size = 20)) +
+  labs(x="TimePoint", y="Expression")
+plot(save_plot(p, paste("isg_longitudinal_plots/GeneExpr_sympt_", geneID, sep=""), fig.width = 8, fig.height = 6))
+
+  p = ggplot(indf.asympt, aes_string(x = "tp", y = geneID, fill="celltype_fac")) +
+  geom_boxplot(position = position_dodge(width = 0.9), alpha=0.5 )+ scale_fill_manual(name = "Cell type", values = unlist(use.colors)) + stat_summary(
+    fun = median,
+    geom = 'smooth',
+    aes(group = celltype_fac, colour = celltype_fac),
+    position = position_dodge(width = 0.9) #this has to be added
+  ) + scale_colour_manual(name = "Cell type", values = unlist(use.colors)) +
+    ggtitle(paste(geneID, " Expression (Asymptomatic)", sep=""))+ ylim(0,8.0)+theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+panel.background = element_blank(), axis.line = element_line(colour = "black"), text = element_text(size = 20)) + labs(x="TimePoint", y="Expression")
+plot(save_plot(p, paste("isg_longitudinal_plots/GeneExpr_asympt_", geneID, sep=""), fig.width = 8, fig.height = 6))
+
+}
+
+for (isGene in interferonGenes)
+{
+plotGeneExpr(allPlotDF.sympt, allPlotDF.asympt, isGene)  
+}
+
+
+```
+
+```{r fig.width=12, fig.height=36}
+VlnPlot(obj.integrated, interferonGenes, pt.size=0, group.by="unified_cellnames", split.by="mpoint", ncol=2)
+```
+
+
+```{r}
+
+p=DimPlot(obj.integrated, group.by="unified_cellnames")
+g <- ggplot_build(p)
+cellname2color = unique(data.frame(group=g$data[[1]]$group, color=g$data[[1]]$colour, cellnames=levels(obj.integrated$unified_cellnames)[g$data[[1]]$group]))
+cellname2color
+plot(p)
+
+celltype2color = list("T-cells"="#CD9600", "B-cells"="#00BE67", "Monocytes"="#F8766D", "NK-cells"="#7CAE00")
 
 ```
 
@@ -3876,6 +4045,18 @@ for (sname in names(ifnScoreDFs))
 }
 
 ```
+```{r}
+ifnScoreDFs_small$all
+```
+
+
+```{r}
+unique(ifnScoreDFs_small$all$cond)
+```
+
+
+
+
 
 ```{r}
 save.image("/mnt/f/dev/data/Rprojs/covidSC/analysis_end.currentifn.RData", compress = FALSE)
@@ -4023,7 +4204,7 @@ createBins = function(indf, col.fc, col.sig, bounds)
     
     curBin = -(length(bounds)/2)
     
-    if (fc > bounds[length(bounds)])
+    if (fc >= bounds[length(bounds)])
     {
       return(length(bounds)/2)
     }
@@ -4058,6 +4239,9 @@ createBins = function(indf, col.fc, col.sig, bounds)
 quantileVec = as.numeric(quantile(abs(celltype.logfcs), probs = c(0.25, 0.75)))
 quantileVec = c(-rev(quantileVec), quantileVec)
 quantileVec
+
+print(celltype)
+print(quantileVec)
 
 allBinNames = c()
 
@@ -4132,7 +4316,7 @@ allResultsBins[[celltype]] = celltype.results
 ```
 
 ```{r}
-
+allResultsBins[["all"]][allResultsBins[["all"]]$gene %in% interferonGenes,]
 ```
 
 ```{r}
@@ -4347,6 +4531,11 @@ return(p)
 ```
 
 ```{r}
+
+  isgSubsetDF = allResultsBins[["all"]]
+  isgSubsetDF = isgSubsetDF[isgSubsetDF$gene %in% interferonGenes,]
+  
+  
 p1=makeFuzzyPlot(isgSubsetDF, selState = "asympt", list.name=paste(pname, "asympt", sep="_"), filterThresh = 0, logged = F, map.labels=list("bins.asympt.tp1"="TP1", "bins.asympt.tp2"="TP2", "bins.asympt.tp3"="TP3"), breaks=5)
 p2=makeFuzzyPlot(isgSubsetDF, selState = "sympt", list.name=paste(pname, "sympt", sep="_"), filterThresh = 0, logged = F, map.labels=list("bins.sympt.tp1"="TP1", "bins.sympt.tp2"="TP2", "bins.sympt.tp3"="TP3"), breaks=5)
 
@@ -4480,11 +4669,8 @@ save_plot(p, paste("fuzzyfinal/covid", "log", celltypeName, sep="_"), fig.width=
 
 ```{r fig.width=12, fig.height=8}
 
-
 p=makeFuzzyPlot(celltype.results, selState = "asympt", filterThresh = 10, logged = F)
 p
-#save_plot(p, "fuzzyplots/asympt", fig.width=12, fig.height = 8)
-
 
 ```
 
@@ -4512,10 +4698,261 @@ save_plot(umap_cellnames_plot2, outname = "fuzzyplots/umap_idents", fig.width=15
 ```
 
 ```{r}
-interferonGenes
+
+createFuzzyBins = function(indf, col.fc, col.sig, bounds)
+{
+
+  smalldf = indf[, c("gene", col.fc, col.sig)]
+  colnames(smalldf) = c("gene", "fc", "sig")
+
+  binFun = function(x)
+  {
+
+    fc = as.numeric(x[2])
+    sig = as.numeric(x[3])
+
+    #print(x)
+    #print(bounds)
+
+    if ((is.na(sig)) || is.nan(sig) ||(sig > 0.05) || is.na(fc) || is.nan(fc))
+    {
+      return(0)
+    }
+
+    curBin = 0
+
+    if (fc > bounds[length(bounds)])
+    {
+      return(length(bounds))
+    }
+
+    for (i in 1:length(bounds))
+    {
+      #print(paste(i, curBin+i-1, fc, "<", bounds[i], fc < bounds[i]))
+      if (fc < bounds[i])
+      {
+        return(curBin + i -1)
+      }
+    }
+
+    print(x)
+    return(10)
+  }
+
+
+  bins = apply(smalldf, 1, binFun)
+
+  return(bins)
+
+}
+
+
 ```
 
 
+
+```{r}
+typeIinterferones = c("IFNE", "IFNK", "IFNA1", "IFNA2", "IFNA4", "IFNA5", "IFNA6", "IFNA7", "IFNA8", "IFNA10", "IFNA13", "IFNA14", "IFNA16", "IFNA17", "IFNA21","IFNB1", "IFNW1", "IL6")
+typeIIinterferones = c("IFNG")
+typeIIIinterferones = c("IFNL1", "IFNL2", "IFNL3")
+
+typeInterferones = list("typeI"=typeIinterferones, "typeII"=typeIIinterferones, "typeIII"=typeIIIinterferones)
+
+typeI_ISG = c("ISG15", "IRF1", "IRF2", "IRF7", "IRF8", "IRF9", "IFIT1", "IFIT2", "IFIT3", "IFITM1", "IFITM2", "IFITM3", "MX1", "IFI44L", "IFI16", "LY6E", "OAS1", "PKR", "BST2", "CXCL10", "ZAP", "RSAD2")
+typeII_ISG = c("IFNGR1", "IFNGR2", "IFNAR1", "IFNAR2", "ICAM1", "CXCL9", "NOS2")
+
+typeISGs = list("typeI"=typeI_ISG, "typeII"=typeII_ISG, "kami"=interferonGenes)
+
+```
+
+```{r}
+for (typeIFN in names(typeInterferones))
+{
+  ifnGenes = typeInterferones[[typeIFN]]
+  
+  print(typeIFN)
+  print(ifnGenes)
+  print(paste(length(ifnGenes), length(intersect(ifnGenes, rownames(obj.integrated)))))
+
+}
+
+
+for (typeIFN in names(typeISGs))
+{
+  ifnGenes = typeISGs[[typeIFN]]
+  
+  print(typeIFN)
+  print(ifnGenes)
+  intersectionISG = intersect(ifnGenes, rownames(obj.integrated))
+  print(paste(length(ifnGenes), length(intersectionISG), paste(intersectionISG, collapse=",")))
+
+}
+
+```
+
+```{r}
+ctrlTPs = obj.integrated$mpoint
+ctrlTPs[obj.integrated$disease_state == "CONTROL"] = "0"
+obj.integrated$TimePoint = ctrlTPs
+```
+
+```{r}
+
+tp0123Colors = c(color.control, color.tp1, color.tp2, color.tp3)
+
+```
+
+
+```{r fig.width=6, fig.height=6}
+
+for (pgene in c("ICAM1", "IFNGR1", "IFNGR2", "IFNAR1", "IFNAR2"))
+{
+  p = VlnPlot(subset(obj.integrated, unified_cellnames == "Monocytes;Immune system" & disease_state %in% c("CONTROL", "SYMPTOMATIC")), pgene, pt.size=0, group.by="unified_cellnames", cols = tp0123Colors, split.by="TimePoint")+ylim(0,3.5) + geom_boxplot(color="grey", alpha=0.4, position =position_dodge(width = 0.9)) + stat_summary(fun=mean, geom="point", aes(group=split), position=position_dodge(.9), color="black", size=4) + ggtitle(paste("CTRL+SYMPT", pgene))
+  save_plot(p, paste("ifng_story/vlnplot_mono_sympt_", pgene, sep=""), 6,6)
+  
+  p=plot(VlnPlot(subset(obj.integrated, unified_cellnames == "Monocytes;Immune system" & disease_state %in% c("CONTROL", "ASYMPTOMATIC")), pgene, pt.size=0, group.by="unified_cellnames",cols = tp0123Colors, split.by="TimePoint")+ylim(0,3.5)  ) + geom_boxplot(color="grey", alpha=0.4, position =position_dodge(width = 0.9)) + stat_summary(fun=mean, geom="point", aes(group=split), position=position_dodge(.9), color="black", size=4) + ggtitle(paste("CTRL+ASYMPT", pgene))
+  save_plot(p, paste("ifng_story/vlnplot_mono_asympt_", pgene, sep=""), 6,6)
+
+  }
+p
+```
+
+
+```{r}
+allResultsBins[[celltypeName]][allResultsBins[[celltypeName]]$gene == "ICAM1", ]
+```
+
+
+```{r}
+
+isgI = read.table("interferomes/typeI_isg_human_all", sep="\t", header = T)
+isgII = read.table("interferomes/typeII_isg_human_all", sep="\t", header = T)
+isgIII = read.table("interferomes/typeIII_isg_human_all", sep="\t", header = T)
+
+isgI_only_genes = setdiff(isgI$Gene.Name, union(isgII$Gene.Name, isgIII$Gene.Name))
+isgII_only_genes = setdiff(isgII$Gene.Name, union(isgI$Gene.Name, isgIII$Gene.Name))
+isgIII_only_genes = setdiff(isgIII$Gene.Name, union(isgII$Gene.Name, isgI$Gene.Name))
+
+print(paste("isgI", length(isgI_only_genes)))
+print(paste("isgII", length(isgII_only_genes)))
+print(paste("isgIII", length(isgIII_only_genes)))
+
+isgOnly = list("typeI_isg"=isgI_only_genes, "typeII_isg"=isgII_only_genes, "typeIII_isg"=isgIII_only_genes)
+isgInterferome = list("typeI_isg_overlap"=isgI$Gene.Name, "typeII_isg_overlap"=isgII$Gene.Name, "typeIII_isg_overlap"=isgIII$Gene.Name)
+
+
+```
+
+```{r}
+isgZiegler = list("ziegler_ifng"= c("WARS", "CD74", "GBP1", "LAP3", "TAP1", "CXCL11", "PSMB9","UBE2L6","PSMB8","IFI30","STAT1","PSME2","PSMB10","B2M","CXCL10","IFI35","ISG20","GUK1","LGALS17A","S,C25A1","DUSP1","APOL2","IDO1","SLC16A3","PSMA4","PSME1","GBP2","PSMA5","PSMA2","LDHA","HLA-DRA","C20orf24","ISG15"), "ziegler_ifna"=c("ISG15","MX1","IFIT1","IFITM1","IFI44L","OAS1","IFI35","IFIT3","UBE2L6","RP11-396M11.1","ISG20","LAP3","XAF1","STAT1","OASL","USP18","OAS2","MX2","OAS3","CTD-2561J22.2","DDX58","EPSTI1","GBP1","LGALS9","RSAD2","HPX","DANCR"))
+
+isgZiegler$ziegler_ifng = c(isgZiegler$ziegler_ifng, c("IFNGR1", "IFNGR2", "IFNAR1", "IFNAR2", "ICAM1", "CXCL9", "NOS2"))
+
+```
+
+
+```{r}
+
+
+for (typeIFN in names(typeISGs))
+{
+  celltypeName = "Monocytes"
+  
+  ifnGenes = typeISGs[[typeIFN]]
+  
+  print(typeIFN)
+  print(paste(length(ifnGenes), length(intersect(ifnGenes, rownames(obj.integrated))), length(intersect(ifnGenes, allResultsBins[[celltypeName]]$gene))))
+
+  fullFcDF = allResultsBins[[celltypeName]]
+  fcDF = fullFcDF[fullFcDF$gene %in% ifnGenes,]
+
+
+
+  lname = paste("rev2_ffcs/sympt_fc_", typeIFN, "_", celltypeName, sep="")
+
+  p=makeFuzzyPlot(fcDF, bins.name = lname, selState = "sympt", filterThresh = 0, logged=F, map.labels=list("bins.sympt.tp1"="TP1", "bins.sympt.tp2"="TP2", "bins.sympt.tp3"="TP3"))
+save_plot(p, lname, fig.width=12, fig.height = 8)
+
+  lname = paste("rev2_ffcs/asympt_fc_", typeIFN, "_", celltypeName, sep="")
+
+  p=makeFuzzyPlot(fcDF, bins.name = lname, selState = "asympt", filterThresh = 0, logged=F, map.labels=list("bins.asympt.tp1"="TP1", "bins.asympt.tp2"="TP2", "bins.asympt.tp3"="TP3"))
+save_plot(p, lname, fig.width=12, fig.height = 8)
+  
+  
+fcDF[is.na(fcDF)] = 0
+fcDF
+
+symptCols = grep("\\.sympt\\.", colnames(fcDF), value=T)
+asymptCols = grep("\\.asympt\\.", colnames(fcDF), value=T)
+
+ffcDF = NULL
+ffcDFColNames = c("gene")
+celltype.logfcs = c()
+
+for (tpName in c("tp1", "tp2", "tp3"))
+{
+  
+  symptCol = paste("avg_log2FC", "sympt", tpName, sep=".")
+  asymptCol = paste("avg_log2FC", "asympt", tpName, sep=".")
+  
+  newLogFC = fcDF[,symptCol]-fcDF[,asymptCol]
+  
+  celltype.logfcs = c(celltype.logfcs, fullFcDF[, symptCol]-fullFcDF[, asymptCol])
+  
+  col1name = paste("avg_log2FC", "ffc", tpName, sep=".")
+  col2name = paste("p_val_adj", "ffc", tpName, sep=".")
+  
+  ffcDFColNames = c(ffcDFColNames, col1name, col2name)
+  
+  if (is.null(ffcDF))
+  {
+    ffcDF = data.frame(fcDF$gene,
+                       newLogFC,
+                       newLogFC*0)
+  } else {
+    ffcDF = cbind(ffcDF, newLogFC)
+    ffcDF = cbind(ffcDF, newLogFC*0)
+  }
+  
+  colnames(ffcDF) = ffcDFColNames
+}
+
+colnames(ffcDF) = ffcDFColNames
+rownames(ffcDF) = rownames(fcDF)
+
+
+quantileVec = as.numeric(quantile(abs(celltype.logfcs), probs = c(0.25, 0.75), na.rm=T))
+quantileVec = c(-rev(quantileVec), quantileVec)
+print(quantileVec)
+
+for (tpName in c("tp1", "tp2", "tp3"))
+{
+  col3name = paste("bins", "ffc", tpName, sep=".")
+
+  binVec = createBins(ffcDF, paste("avg_log2FC.ffc", tpName, sep="."),
+                  paste("p_val_adj.ffc", tpName, sep="."), quantileVec)
+  ffcDF = cbind(ffcDF, binVec)
+  
+  ffcDFColNames = c(ffcDFColNames, col3name)
+  
+}
+
+colnames(ffcDF) = ffcDFColNames
+ffcDF
+
+  lname = paste("rev2_ffcs/ffc_", typeIFN, "_", celltypeName, sep="")
+  
+  ffc.levels=list("-2"="NON-PNEU", "-1"="non-pneu", "0"="No Reg.", "1"="pneu", "2"="PNEU")
+
+  p=makeFuzzyPlot(ffcDF, bins.name = lname, selState = "ffc", filterThresh = 0, logged=F,use.levels=ffc.levels, map.labels=list("bins.ffc.tp1"="TP1", "bins.ffc.tp2"="TP2", "bins.ffc.tp3"="TP3"))
+plot(save_plot(p, lname, fig.width=12, fig.height = 8))
+
+write.table(ffcDF[, grep("gene|avg_log2FC|bins", colnames(ffcDF), value=T)], file=paste(lname, "_ffcdf.txt", sep=""), row.names = F)
+
+}
+
+
+```
 
 
 ```{r fig.width=12, fig.height=8}
@@ -4534,68 +4971,13 @@ save_plot(p, "fuzzyplots/asympt_isg", fig.width=12, fig.height = 8)
 ```
 
 
-
 ```{r}
 
-save.image("/mnt/f/dev/data/Rprojs/covidSC/analysis_end.temporal.RData", compress = FALSE)
+save.image("/mnt/f/dev/data/Rprojs/covidSC/analysis_end.temporal.ffc.RData", compress = FALSE)
 
 
 ```
 
-
-```{r}
-library(ggalluvial)
-ggplot(as.data.frame(Titanic),
-       aes(y = Freq,
-           axis1 = Survived, axis2 = Sex, axis3 = Class)) +
-  geom_alluvium(aes(fill = Class),
-                width = 0, knot.pos = 0, reverse = FALSE) +
-  guides(fill = FALSE) +
-  geom_stratum(width = 1/8, reverse = FALSE) +
-  geom_text(stat = "stratum", aes(label = after_stat(stratum)),
-            reverse = FALSE) +
-  scale_x_continuous(breaks = 1:3, labels = c("Survived", "Sex", "Class")) +
-  coord_flip() +
-  ggtitle("Titanic survival by class and sex")
-
-```
-
-
-
-```{r}
-
-library(Tempora)
-library(RCurl)
-
-gmt_url = "http://download.baderlab.org/EM_Genesets/current_release/Human/symbol/"
-filenames = getURL(gmt_url)
-tc = textConnection(filenames)
-contents = readLines(tc)
-close(tc)
-
-#get the gmt that has all the pathways and does not include terms inferred from electronic annotations(IEA)
-#start with gmt file that has pathways only
-rx = gregexpr("(?<=<a href=\")(.*.GOBP_AllPathways_no_GO_iea.*.)(.gmt)(?=\">)",
-  contents, perl = TRUE)
-
-gmt_file = unlist(regmatches(contents, rx))
-dest_gmt_file <- file.path(getwd(),gmt_file )
-download.file(
-    paste(gmt_url,gmt_file,sep=""),
-    destfile=dest_gmt_file
-)
-
-
-```
-
-```{r}
-obj.integrated
-```
-
-```{r}
-DimPlot(obj.integrated, group.by = "unified_cellnames")
-
-```
 
 ```{r}
 
@@ -4664,12 +5046,6 @@ manualExprDF = get_population_expression_data(subset(obj.integrated, disease_sta
 
 
 ```
-
-
-```{r}
-unique(obj.integrated$celltypenames)
-```
-
 
 
 
